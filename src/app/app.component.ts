@@ -12,6 +12,7 @@ export class AppComponent {
     angForm: FormGroup;
     countries = [];
     canDisplayData: Boolean
+    IDs = ["PASS", "NATIONELLT ID", "ANNAN HANDLING", "NEJ"]
    constructor(private fb: FormBuilder, private dataService: DataService) {
     this.createForm();
   }
@@ -24,8 +25,13 @@ export class AppComponent {
       gender: ['', [Validators.required]],
       phone: ['', [Validators.required], Validators.pattern("^[0-9]{12}")],
       country: ['', [Validators.required]],
+      additional_info: ['', [Validators.required, Validators.maxLength(200)]],
+      abroadPOB: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
+      FaststalltId: ['', [Validators.required]],
+      UnderlagId: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
+      other_info: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       bdate: this.fb.group({
-        byear: ['', [Validators.required]],
+        byear: ['', [Validators.required], Validators.pattern("^[0-9]{4}")],
         bmonth: ['', [Validators.required]],
         bday: ['', [Validators.required]]
       }),
@@ -94,6 +100,27 @@ export class AppComponent {
   get bday() {
     return this.angForm.get("bdate").get("bday")
   }
+
+  get additional_info() {
+    return this.angForm.get("additional_info")
+  }
+
+  get abroadPOB(){
+    return this.angForm.get("abroadPOB")
+  }
+
+  get FaststalltId(){
+    return this.angForm.get("FaststalltId")
+  }
+
+  get UnderlagId(){
+    return this.angForm.get("UnderlagId")
+  }
+
+  get other_info(){
+    return this.angForm.get("other_info")
+  }
+
 
   onSubmit() {
     console.log(this.angForm.value);

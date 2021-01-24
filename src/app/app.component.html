@@ -53,10 +53,18 @@
       <div class="item">
       <label for="name">Name<span>*</span></label>
       <div class="name-item">
-      <input id="name" type="text" name="name" placeholder="First name" formControlName="firstname"/>
+      <input id="name" type="text" name="name" placeholder="---" formControlName="firstname"/>
       <input id="name" type="text" name="name" placeholder="Last name" formControlName="lastname"/>
       </div>
       </div>
+      <div class="item">
+        <label for="additional-info">Additional info<span>*</span></label>
+        <input id="additional-info" type="text" name="additional-info" placeholder="additional-info" formControlName="additional_info"/>
+        </div>
+        <div class="item">
+          <label for="abroadPOB">Abroad POB<span>*</span></label>
+          <input id="abroadPOB" type="text" name="abroadPOB" placeholder="abroadPOB" formControlName="abroadPOB"/>
+          </div>
       <div formGroupName="address">
       <div class="item">
         <label for="address">C/O Address</label>
@@ -86,9 +94,9 @@
         <label for="country">Country<span>*</span></label>
               <select id="country" name="country" formControlName="country">
                 <option selected disabled>Select Country</option>
-                <options *ngFor="let country of countries" >
+                <option *ngFor="let country of countries" >
                   {{country}}
-                </options>
+                </option>
               </select>
             </div>
             <div *ngIf="!country.valid && (country.dirty ||country.touched)">
@@ -120,6 +128,26 @@
           <label for="male">Female</label>
         </div>
         </div>
+    </fieldset>
+    <fieldset>
+      <legend>Ärendeuppgifter</legend>
+      <div class="item">
+        <label for="FaststalltId">FaststalltId<span>*</span></label>
+      <select id="FaststalltId" type="text" name="FaststalltId" placeholder="FaststalltId" formControlName="FaststalltId">
+      <option selected disabled>Select id</option>
+      <option *ngFor="let FaststalltId of IDs">
+        {{FaststalltId}}
+        </option>
+      </select>
+      </div>
+       <div class="item">
+        <label for="UnderlagId">UnderlagId<span>*</span></label>
+        <input id="UnderlagId" type="text" name="UnderlagId" placeholder="UnderlagId" formControlName="UnderlagId"/>
+       </div>
+       <div class="item">
+        <label for="other-info">other-info</label>
+        <input id="other-info" type="text" name="other-info" placeholder="other-info" formControlName="other_info"/>
+       </div>
     </fieldset>
       <div class="btn-block">
       <button  type="submit">APPLY</button>
