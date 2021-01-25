@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { FormGroup,  FormBuilder,  Validators, AbstractControl, ValidatorFn  } from '@angular/forms';
 import { DataService } from './data.service';
 
 @Component({
@@ -11,17 +11,19 @@ export class AppComponent {
     title = 'AfForm';
     angForm: FormGroup;
     countries = [];
-    canDisplayData: Boolean
+    canDisplayData: Boolean;
     IDs = ["PASS", "NATIONELLT ID", "ANNAN HANDLING", "NEJ"]
    constructor(private fb: FormBuilder, private dataService: DataService) {
     this.createForm();
   }
    createForm() {
    this.angForm = this.fb.group({
-      firstname: ['', [Validators.required, Validators.minLength(60)]],
-      lastname: ['', [Validators.required, Validators.maxLength(15), Validators.pattern("^[a-zA-Z]+$")]],
+      firstname: ['', {
+        validators: [Validators.required, Validators.maxLength(80)],
+        updateOn: 'blur'
+      }],
+      lastname: ['', [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-Z]+$")]],
       email: ['', [Validators.required, Validators.email]],
-      handling: ["", [Validators.required]],
       gender: ['', [Validators.required]],
       phone: ['', [Validators.required], Validators.pattern("^[0-9]{12}")],
       country: ['', [Validators.required]],
@@ -31,9 +33,9 @@ export class AppComponent {
       UnderlagId: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       other_info: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       bdate: this.fb.group({
-        byear: ['', [Validators.required], Validators.pattern("^[0-9]{4}")],
-        bmonth: ['', [Validators.required]],
-        bday: ['', [Validators.required]]
+        byear: ['', [Validators.required, Validators.pattern("^[0-9]{4}"), dateValidator]],
+        bmonth: ['', [Validators.required,Validators.pattern("^(0[1-9]|1[012])$"), dateValidator]],
+        bday: ['', [Validators.required,Validators.pattern("(0[1-9]|[12]\d|3[01])"), dateValidator]]
       }),
       address: this.fb.group({
         city: ['', [Validators.required]],
@@ -43,6 +45,7 @@ export class AppComponent {
       })
     });
   }
+
   async ngOnInit() {
     
     this.countries = await this.dataService.sendGetRequest().toPromise()
@@ -126,4 +129,21 @@ export class AppComponent {
     console.log(this.angForm.value);
   }
 
+}
+
+function dateValidator(): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const today = new Date().getTime();
+    console.log(new Date().getFullYear)
+
+    if(!(control && control.value)) {
+      // if there's no control or no value, that's ok
+      return null;
+    }
+
+    // return null if there's no errors
+    return control.value.getTime() > today 
+      ? {invalidDate: 'You cannot use future dates' } 
+      : null;
+  }
 }
