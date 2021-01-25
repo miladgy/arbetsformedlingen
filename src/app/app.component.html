@@ -47,6 +47,10 @@
             <label for="phone">Phone<span>*</span></label>
             <input id="phone" type="text" name="number" formControlName="phone"/>
         </div>
+        <div class="item">
+          <label for="handling">Handling<span>*</span></label>
+          <input id="handling" type="file" />
+      </div>
       </fieldset>
       <fieldset>
       <legend>User Information</legend>
@@ -93,7 +97,7 @@
               <div *ngIf="countries.length === 0">Loading...</div>
         <label for="country">Country<span>*</span></label>
               <select id="country" name="country" formControlName="country">
-                <option selected disabled>Select Country</option>
+                <option selected>Select Country</option>
                 <option *ngFor="let country of countries" >
                   {{country}}
                 </option>
@@ -134,7 +138,7 @@
       <div class="item">
         <label for="FaststalltId">FaststalltId<span>*</span></label>
       <select id="FaststalltId" type="text" name="FaststalltId" placeholder="FaststalltId" formControlName="FaststalltId">
-      <option selected disabled>Select id</option>
+      <option selected >Select id</option>
       <option *ngFor="let FaststalltId of IDs">
         {{FaststalltId}}
         </option>
