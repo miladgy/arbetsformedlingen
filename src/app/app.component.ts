@@ -40,12 +40,13 @@ export class AppComponent {
       address: this.fb.group({
         city: ['', [Validators.required]],
         street: ['', [Validators.required]],
+        apartmentNumber: ['', [Validators.required]],
         postort: ['', [Validators.required]],
         postcode: ['', [Validators.required]]
       })
     });
   }
-
+  
   async ngOnInit() {
     
     this.countries = await this.dataService.sendGetRequest().toPromise()
@@ -84,6 +85,10 @@ export class AppComponent {
     return this.angForm.get("address").get('street');
   }
  
+  get apartmentNumber() {
+    return this.angForm.get("address").get('apartmentNumber');
+  }
+
   get postcode() {
     return this.angForm.get("address").get('postcode');
   }
@@ -147,3 +152,4 @@ function dateValidator(): ValidatorFn {
       : null;
   }
 }
+

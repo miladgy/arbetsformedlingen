@@ -1,167 +1,116 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Verification Form</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <div class="testbox">
-      <form [formGroup]="angForm" (ngSubmit)="onSubmit()" novalidate>
-        <div class="banner">
-          <h1>Verification Form</h1>
-        </div>
-        <p>
-          Please fill out with the information that is requested below and
-          submit the verification form. Thank you!
-        </p>
-        <hr />
-        <fieldset>
-          <legend>Handläggare Information</legend>
-          <div class="item">
-            <label for="name">Name<span>*</span></label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="First name"
-              formControlName="firstname"
-              autocomplete="off"
-            />
-            <div
-              *ngIf="
+
+<head>
+  <title>Verification Form</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="testbox">
+    <form [formGroup]="angForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="banner">
+        <h1>Verification Form</h1>
+      </div>
+      <p>
+        Please fill out with the information that is requested below and
+        submit the verification form. Thank you!
+      </p>
+      <hr />
+      <fieldset>
+        <legend>Handläggare Information</legend>
+        <div class="item">
+          <label for="name">Name<span>*</span></label>
+          <input id="name" type="text" name="name" placeholder="First name" formControlName="firstname"
+            autocomplete="off" />
+          <div *ngIf="
                 (firstname.invalid && firstname.dirty) || firstname.touched
-              "
-            >
-              <small *ngIf="!firstname.errors.required">
-                firstname is required.
-              </small>
-              <small *ngIf="!firstname.errors.minlength">
-                Firstname must be at least 10 characters long.
-              </small>
-            </div>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Last name"
-              formControlName="lastname"
-              autocomplete="off"
-            />
-            <div
-              *ngIf="(lastname.invalid && lastname.touched) || lastname.dirty"
-            >
-              <small *ngIf="lastname.errors.required" class="text-danger"
-                >lastname is required.</small
-              >
-              <small [hidden]="!lastname.errors.maxlength">
-                Max length allowed is
-                {{ lastname.errors.maxlength?.requiredLength }}
-              </small>
-              <small [hidden]="!lastname.errors.pattern">
-                Only characters are allowed.
-              </small>
-            </div>
+              ">
+            <small *ngIf="!firstname.errors.required">
+              firstname is required.
+            </small>
+            <small *ngIf="!firstname.errors.minlength">
+              Firstname must be at least 10 characters long.
+            </small>
           </div>
-          <div class="item">
-            <label for="email">Email<span>*</span></label>
-            <input id="email" type="text" name="text" formControlName="email" />
+          <input id="name" type="text" name="name" placeholder="Last name" formControlName="lastname"
+            autocomplete="off" />
+          <div *ngIf="(lastname.invalid && lastname.touched) || lastname.dirty">
+            <small *ngIf="lastname.errors.required" class="text-danger">lastname is required.</small>
+            <small [hidden]="!lastname.errors.maxlength">
+              Max length allowed is
+              {{ lastname.errors.maxlength?.requiredLength }}
+            </small>
+            <small [hidden]="!lastname.errors.pattern">
+              Only characters are allowed.
+            </small>
           </div>
-          <div class="item">
-            <label for="phone">Phone<span>*</span></label>
-            <input
-              id="phone"
-              type="text"
-              name="number"
-              formControlName="phone"
-            />
+        </div>
+        <div class="item">
+          <label for="email">Email<span>*</span></label>
+          <input id="email" type="text" name="text" formControlName="email" />
+        </div>
+        <div class="item">
+          <label for="phone">Phone<span>*</span></label>
+          <input id="phone" type="text" name="number" formControlName="phone" />
+        </div>
+        <div class="item">
+          <app-upload-files></app-upload-files>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>User Information</legend>
+        <div class="item">
+          <label for="name">Name<span>*</span></label>
+          <div class="name-item">
+            <input id="name" type="text" name="name" placeholder="---" formControlName="firstname" />
+            <input id="name" type="text" name="name" placeholder="Last name" formControlName="lastname" />
           </div>
-          <div class="item">
-            <app-upload-files></app-upload-files>
+        </div>
+        <div class="item">
+          <label for="additional-info">Additional info<span>*</span></label>
+          <input id="additional-info" type="text" name="additional-info" placeholder="additional-info"
+            formControlName="additional_info" />
+        </div>
+        <div class="item">
+          <label for="abroadPOB">Abroad POB<span>*</span></label>
+          <input id="abroadPOB" type="text" name="abroadPOB" placeholder="abroadPOB" formControlName="abroadPOB" />
+        </div>
+        <div class="item">
+          <div>
+            <div *ngIf="countries.length === 0">Loading...</div>
+            <label for="country">Country<span>*</span></label>
+            <select id="country" name="country" formControlName="country">
+              <option selected>Select Country</option>
+              <option *ngFor="let country of countries">
+                {{ country }}
+              </option>
+            </select>
           </div>
-        </fieldset>
-        <fieldset>
-          <legend>User Information</legend>
-          <div class="item">
-            <label for="name">Name<span>*</span></label>
-            <div class="name-item">
-              <input
-                id="name"
-                type="text"
-                name="name"
-                placeholder="---"
-                formControlName="firstname"
-              />
-              <input
-                id="name"
-                type="text"
-                name="name"
-                placeholder="Last name"
-                formControlName="lastname"
-              />
-            </div>
+          <div *ngIf="!country.valid && (country.dirty || country.touched)">
+            <div [hidden]="!country.errors.required">country is required</div>
           </div>
-          <div class="item">
-            <label for="additional-info">Additional info<span>*</span></label>
-            <input
-              id="additional-info"
-              type="text"
-              name="additional-info"
-              placeholder="additional-info"
-              formControlName="additional_info"
-            />
-          </div>
-          <div class="item">
-            <label for="abroadPOB">Abroad POB<span>*</span></label>
-            <input
-              id="abroadPOB"
-              type="text"
-              name="abroadPOB"
-              placeholder="abroadPOB"
-              formControlName="abroadPOB"
-            />
-          </div>
-          <div class="item">
-            <div>
-              <div *ngIf="countries.length === 0">Loading...</div>
-              <label for="country">Country<span>*</span></label>
-              <select id="country" name="country" formControlName="country">
-                <option selected>Select Country</option>
-                <option *ngFor="let country of countries">
-                  {{ country }}
-                </option>
-              </select>
-            </div>
-            <div *ngIf="!country.valid && (country.dirty || country.touched)">
-              <div [hidden]="!country.errors.required">country is required</div>
-            </div>
-          </div>
-          <div formGroupName="bdate">
-            <section id="date-of-birth">
-              <div class="gender-bdate">
+        </div>
+        <div formGroupName="bdate">
+          <section id="date-of-birth">
+            <div class="gender-bdate">
               <fieldset>
                 <legend class="sub-legend">Date of Birth</legend>
                 <div class="field-inline-block">
                   <label>DD</label>
-                  <input type="text" maxlength="2" size="2" formGroupName="bday"/>
+                  <input type="text" maxlength="2" size="2" formGroupName="bday" />
                 </div>
                 /
                 <div class="field-inline-block">
                   <label>MM</label>
-                  <input type="text" maxlength="2" size="2" formGroupName="bmonth"/>
+                  <input type="text" maxlength="2" size="2" formGroupName="bmonth" />
                 </div>
                 /
                 <div class="field-inline-block">
                   <label>YYYY</label>
-                  <input type="text" maxlength="4" size="4" formGroupName="byear"/>
+                  <input type="text" maxlength="4" size="4" formGroupName="byear" />
                 </div>
               </fieldset>
               <fieldset>
@@ -169,142 +118,89 @@
                 <div class="item">
                   <label for="gender">Gender<span>*</span></label>
                   <div>
-                    <input
-                      type="radio"
-                      value="male"
-                      id="gender"
-                      name="gender"
-                      class="gender-male"
-                      formControlName="gender"
-                    />
+                    <input type="radio" value="male" id="gender" name="gender" class="gender-male"
+                      formControlName="gender" />
                     <label for="male">Male</label>
-                    <input
-                      type="radio"
-                      value="female"
-                      id="gender"
-                      name="gender"
-                      class="gender-female"
-                      formControlName="gender"
-                    />
+                    <input type="radio" value="female" id="gender" name="gender" class="gender-female"
+                      formControlName="gender" />
                     <label for="male">Female</label>
                   </div>
                 </div>
               </fieldset>
             </div>
-            </section>
-          </div>
-          <div class="item">
-            <label for="email">Email<span>*</span></label>
-            <input id="email" type="text" name="text" formControlName="email" />
-          </div>
-       
-          <div formGroupName="address">
-            <fieldset>
+          </section>
+        </div>
+        <div class="item">
+          <label for="email">Email<span>*</span></label>
+          <input id="email" type="text" name="text" formControlName="email" />
+        </div>
+
+        <div formGroupName="address">
+          <fieldset>
             <legend class="sub-legend">Kontaktadress</legend>
             <div class="item">
               <label for="address">C/O Address</label>
-              <input
-                id="address"
-                type="text"
-                name="text"
-                placeholder="C/O Street Address"
-                formControlName="street"
-              />
+              <input id="address" type="text" name="text" placeholder="C/O Street Address" formControlName="street" />
             </div>
             <div class="item">
               <label for="address">Address<span>*</span></label>
-              <input
-                id="address"
-                type="text"
-                name="text"
-                placeholder="Street Address"
-                formControlName="street"
-              />
+              <input id="address" type="text" name="text" placeholder="Street Address" formControlName="street" />
             </div>
             <div class="item">
               <div class="name-item">
                 <div>
-                  <input
-                    type="text"
-                    name="city"
-                    placeholder="City"
-                    formControlName="city"
-                  />
+                  <input type="number" name="apartmentNumber" placeholder="apartment number" formControlName="apartmentNumber" />
                 </div>
                 <div>
-                  <input
-                    type="text"
-                    name="state"
-                    placeholder="Postort"
-                    formControlName="postort"
-                  />
+                  <input type="text" name="city" placeholder="City" formControlName="city" />
                 </div>
                 <div>
-                  <input
-                    type="text"
-                    name="code"
-                    placeholder="Postcode"
-                    formControlName="postcode"
-                  />
+                  <input type="text" name="state" placeholder="Postort" formControlName="postort" />
+                </div>
+                <div>
+                  <input type="text" name="code" placeholder="Postcode" formControlName="postcode" />
                 </div>
               </div>
             </div>
           </fieldset>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Ärendeuppgifter</legend>
-          <div class="item">
-            <label for="FaststalltId">FaststalltId<span>*</span></label>
-            <select
-              id="FaststalltId"
-              type="text"
-              name="FaststalltId"
-              placeholder="FaststalltId"
-              formControlName="FaststalltId"
-            >
-              <option selected>Select id</option>
-              <option *ngFor="let FaststalltId of IDs">
-                {{ FaststalltId }}
-              </option>
-            </select>
-          </div>
-          <div class="item">
-            <label for="UnderlagId">UnderlagId<span>*</span></label>
-            <input
-              id="UnderlagId"
-              type="text"
-              name="UnderlagId"
-              placeholder="UnderlagId"
-              formControlName="UnderlagId"
-            />
-          </div>
-          <div class="item">
-            <label for="other-info">other-info</label>
-            <input
-              id="other-info"
-              type="text"
-              name="other-info"
-              placeholder="other-info"
-              formControlName="other_info"
-            />
-          </div>
-        </fieldset>
-        <div class="btn-block">
-          <button type="submit">APPLY</button>
         </div>
-      </form>
-    </div>
-    <div style="float: right; width: 50%">
-      <h3>Form Status</h3>
-      <b>valid : </b>{{ angForm.valid }} <b>invalid : </b>{{ angForm.invalid }}
-      <b>touched : </b>{{ angForm.touched }} <b>untouched : </b
-      >{{ angForm.untouched }} <b>pristine : </b>{{ angForm.pristine }}
-      <b>dirty : </b>{{ angForm.dirty }} <b>disabled : </b
-      >{{ angForm.disabled }} <b>enabled : </b>{{ angForm.enabled }}
+      </fieldset>
+      <fieldset>
+        <legend>Ärendeuppgifter</legend>
+        <div class="item">
+          <label for="FaststalltId">FaststalltId<span>*</span></label>
+          <select id="FaststalltId" type="text" name="FaststalltId" placeholder="FaststalltId"
+            formControlName="FaststalltId">
+            <option selected>Select id</option>
+            <option *ngFor="let FaststalltId of IDs">
+              {{ FaststalltId }}
+            </option>
+          </select>
+        </div>
+        <div class="item">
+          <label for="UnderlagId">UnderlagId<span>*</span></label>
+          <input id="UnderlagId" type="text" name="UnderlagId" placeholder="UnderlagId" formControlName="UnderlagId" />
+        </div>
+        <div class="item">
+          <label for="other-info">other-info</label>
+          <input id="other-info" type="text" name="other-info" placeholder="other-info" formControlName="other_info" />
+        </div>
+      </fieldset>
+      <div class="btn-block">
+        <button type="submit">APPLY</button>
+      </div>
+    </form>
+  </div>
+  <div style="float: right; width: 50%">
+    <h3>Form Status</h3>
+    <b>valid : </b>{{ angForm.valid }} <b>invalid : </b>{{ angForm.invalid }}
+    <b>touched : </b>{{ angForm.touched }} <b>untouched : </b>{{ angForm.untouched }} <b>pristine : </b>{{
+    angForm.pristine }}
+    <b>dirty : </b>{{ angForm.dirty }} <b>disabled : </b>{{ angForm.disabled }} <b>enabled : </b>{{ angForm.enabled }}
 
-      <h3>Form Value</h3>
-      {{ angForm.value | json }}
-    </div>
-  </body>
+    <h3>Form Value</h3>
+    {{ angForm.value | json }}
+  </div>
+</body>
+
 </html>
