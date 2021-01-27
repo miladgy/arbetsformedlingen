@@ -79,13 +79,7 @@ input {
   width: calc(100% - 10px);
   padding: 5px;
 }
-.error-message {
-  color: #cc0033;
-  display: inline-block;
-  font-size: 12px;
-  line-height: 15px;
-  margin: 5px 0 0;
-}
+
 .error label {
   color: #cc0033;
 }
@@ -109,6 +103,7 @@ select {
   width: 100%;
   padding: 7px 0;
   background: transparent;
+  margin-bottom: 9px;
 }
 /* input[type="date"] {
   padding: 4px 5px;
@@ -180,11 +175,15 @@ fieldset{
 }
 .field-inline-block {
   display: inline-block;
-  margin-right: 10px;
-  margin-left: 5px;  
+  margin-right: 5px;
+  margin-left: 5px; 
+  width: 85px; 
+}
+.bdate-year{
+  width: 120px;
 }
 
-.gender-bdate{
+.bdate{
   display: flex;
   flex: 1;
   justify-items: stretch;

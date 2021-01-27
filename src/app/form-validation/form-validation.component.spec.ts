@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuiformComponent } from './guiform.component';
+import { FormValidationComponent } from './form-validation.component';
 
-describe('GuiformComponent', () => {
-  let component: GuiformComponent;
-  let fixture: ComponentFixture<GuiformComponent>;
+describe('FormValidationComponent', () => {
+  let component: FormValidationComponent;
+  let fixture: ComponentFixture<FormValidationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GuiformComponent ]
+      declarations: [ FormValidationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GuiformComponent);
+    fixture = TestBed.createComponent(FormValidationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

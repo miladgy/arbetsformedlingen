@@ -1,0 +1,12 @@
+<span class="text-danger" *ngIf="(field.touched) && field.errors?.required">
+    {{ fieldName }} is required.
+  </span>
+  <span class="text-danger" *ngIf="(field.touched) && field.errors?.maxlength">
+    {{ fieldName }} must be maximum {{ maxLength }} character long.
+  </span>
+  <span class="text-danger" *ngIf="(field.touched) && field.errors?.pattern">
+    {{ fieldName }} is not valid.
+  </span>
+  <span class="text-danger" *ngIf="(field.touched) && field.errors?.email">
+    Please enter a valid email.
+  </span>

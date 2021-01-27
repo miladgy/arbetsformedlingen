@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class DataService {
 
-  private REST_API_SERVER = "http://localhost:8080/api/countries";
+  private baseUrl = "http://localhost:8080";
 
   constructor(private httpClient: HttpClient) { }
   
   public sendGetRequest(){
-    return this.httpClient.get(this.REST_API_SERVER).
+    return this.httpClient.get(`${this.baseUrl}/api/countries`).
     pipe(
       map((countries: []) => {
         return countries;
@@ -24,23 +27,35 @@ export class DataService {
    )
   }
 
-  postFile(filesToUpload: any[]): Observable<boolean> {
-    const endpoint = 'http://localhost:8080/api/samordningsnummer';
-    const formData: FormData = new FormData();
-    for (var i = 0; i < filesToUpload.length; i++) { 
-      formData.append("fileKey", filesToUpload[i]);
-    }
-   // formData.append('fileKey', filesToUpload, filesToUpload.name);
-    return this.httpClient
-      .post(endpoint, formData).pipe(
-      map(() => { 
-        console.log("uploaded successfully") 
-        return true
-    })
-      , catchError((error) => {
-        return throwError("something wend wrong in uploading the document", error)
-      })
-      )
-}
+
+register(values: FormGroup): Observable<any> {
+  const headers = new HttpHeaders();
+  headers.set( 'Content-Type', "application/json");
+  headers.set("Access-Control-Request-Method", "POST")
+  headers.set("Access-Control-Request-Headers", "content-type")
+  headers.set('Accept', 'application/json');
   
+//   headers.set( 'Content-Type', "application/json");
+//   headers.set("Access-Control-Request-Method", "POST")
+//   headers.set("Access-Control-Request-Headers", "x-requested-with")
+// const req = new HttpRequest('POST', `localhost:8080/api/samordningsnummer`, JSON.stringify(values), {
+//   headers,
+//   reportProgress: true,
+//   responseType: 'json'
+// });
+//return this.httpClient.request(req);
+
+return this.httpClient
+    .post(`${this.baseUrl}/api/samordningsnummer`, JSON.stringify(values), {headers}).pipe(
+    map(r => {
+      console.log("do I come here")
+      console.log("e", r)
+      return r;
+    })) 
+  }
+    
+
 }
+
+
+  
