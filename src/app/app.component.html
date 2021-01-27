@@ -42,7 +42,7 @@
           <app-form-validation [fieldName]="'phone'" [field]="officer_phone" [maxLength]="15"></app-form-validation>
         </div>
         <div class="item">
-          <app-upload-files></app-upload-files>
+          <app-upload-files (filesEvent)="addFiles($event)"></app-upload-files>
         </div>
       </fieldset>
     </div>
@@ -85,7 +85,7 @@
         </div>
         <div formGroupName="bdate">
           <section id="date-of-birth">
-            <div class="gender-bdate">
+            <div class="bdate">
               <fieldset>
                 <legend class="sub-legend">Date of Birth</legend>
                 <div class="field-inline-block">
@@ -100,7 +100,7 @@
                   <app-form-validation [fieldName]="'month'" [field]="bmonth"></app-form-validation>
                 </div>
                 /
-                <div class="field-inline-block">
+                <div class="field-inline-block bdate-year">
                   <label>YYYY</label>
                   <input type="text" maxlength="4" size="4" formControlName="byear" (change)="checkIfDateIsValid()" />
                   <app-form-validation [fieldName]="'year'" [field]="byear"></app-form-validation>

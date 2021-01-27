@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { DataService } from './data.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { DataService } from './data.service';
 export class AppComponent {
   title = 'AfForm';
   angForm: FormGroup;
+  files = [];
   countries = [];
   canDisplayData: Boolean;
   IDs = ["PASS", "ID", "OTHER", "NO"]
@@ -23,7 +24,6 @@ export class AppComponent {
         lastname: ['', [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-Z]+$")]],
         email: ['', [Validators.required, Validators.maxLength(60), Validators.email]],
         phone: ['', [Validators.required, Validators.maxLength(15), Validators.pattern("^[0-9]{12}")]]
-        // upload: ["", [Validators.required]]
       }),
       user: this.fb.group({
         firstname: ['', {
@@ -80,10 +80,6 @@ export class AppComponent {
   get officer_phone() {
     return this.angForm.get("officer").get("phone");
   }
-
-/*   get officer_upload() {
-    return this.angForm.get("officer").get("officer_upload");
-  } */
 
   get firstname() {
     return this.angForm.get("user").get('firstname');
@@ -161,9 +157,15 @@ export class AppComponent {
     return this.angForm.get("case").get("other_info")
   }
 
+  public addFiles = (event: any): void => {
+    this.files.push(event);
+  }
+
 
   onSubmit() {
-    //console.log(this.angForm.value);
+    if (this.files.length) {
+      this.angForm.value.files = this.files;
+    }
     console.log(this.angForm.value)
     this.post()
 
@@ -184,5 +186,4 @@ export class AppComponent {
     }
     return true;
   }
-
 }

@@ -35,8 +35,6 @@ register(values: FormGroup): Observable<any> {
   headers.set("Access-Control-Request-Headers", "content-type")
   headers.set('Accept', 'application/json');
   
-//   headers.set( 'Content-Type', "application/json");
-//   headers.set("Access-Control-Request-Method", "POST")
 //   headers.set("Access-Control-Request-Headers", "x-requested-with")
 // const req = new HttpRequest('POST', `localhost:8080/api/samordningsnummer`, JSON.stringify(values), {
 //   headers,
@@ -53,8 +51,6 @@ return this.httpClient
       return r;
     })) 
   }
-    
-
 }
 
 

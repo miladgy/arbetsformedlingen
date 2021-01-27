@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadFilesService } from '../upload-files.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-upload-files',
@@ -14,10 +15,13 @@ export class UploadFilesComponent implements OnInit {
   selectedFiles: FileList;
   selectedFileName: string;
   progressInfos = [];
-  message: string = "";
+  message = '';
   base64result: string
   fileJSON: Object;
   fileInfos: Observable<any>;
+  data: any = [];
+  @Output() filesEvent = new EventEmitter<any>();
+
 
   constructor(private uploadService: UploadFilesService) { }
 
@@ -36,31 +40,24 @@ export class UploadFilesComponent implements OnInit {
        { 
         this.base64result = (reader.result as string).split(',')[1];
         const fileJSON: Object = {
-          "file": this.selectedFileName,
+          "file": file.name,
           "data":  this.base64result
         }
-        console.log(fileJSON)
+        this.data.push(fileJSON);
+        this.filesEvent.emit(fileJSON);
         return fileJSON
       }
     }
   }
 
-  /* convertBase64toJson(file:string, selectedFileName:string){
-    const fileJSON: Object = {
-      "file": `"${selectedFileName}"`,
-      "data":  `"${file}"`
-    }
-    console.log(fileJSON)
-    return fileJSON
-  } */
-
-   uploadFiles() {
+   async uploadFiles() {
     this.message = '';
   
     for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.convertFiletoJSON(this.selectedFiles[i])
+      await this.convertFiletoJSON(this.selectedFiles[i]);
       this.upload(i, this.selectedFiles[i]);
     }
+    
   }
 
   upload(index, file) {
@@ -72,6 +69,7 @@ export class UploadFilesComponent implements OnInit {
           this.progressInfos[index].value = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           console.log('File is completely uploaded!');  // POSSIBLY SHOW IT IN THE FRONT
+          this.message = 'File is completely uploaded!';
           console.log(event.body);
         }
       },

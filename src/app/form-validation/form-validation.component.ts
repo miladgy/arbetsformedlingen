@@ -7,10 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class FormValidationComponent {
 
-  constructor() { }
-
   @Input() fieldName: string;
   @Input() field: any;
   @Input() maxLength: number;
 
+  constructor() { }
 }
