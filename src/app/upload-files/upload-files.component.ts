@@ -68,18 +68,17 @@ export class UploadFilesComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           this.progressInfos[index].value = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          console.log('File is completely uploaded!');  // POSSIBLY SHOW IT IN THE FRONT
-          this.message = 'File is completely uploaded!';
-          console.log(event.body);
+          console.log('Filen är helt uppladdad!'); 
+          this.message = 'Filen är helt uppladdad!';
         }
       },
       err => {
         this.progressInfos[index].value = 0;
-        this.message = 'Could not upload the file:' + file.name;  // POSSIBLY SHOW IT IN THE FRONT
+        this.message = 'Det gick inte att ladda upp filen:' + file.name;
       });
   }
 
-  ngOnInit() {    // SHOULD I REMOVE IT IN CASE NOT USING IT?
+  ngOnInit() {
     
   }
 

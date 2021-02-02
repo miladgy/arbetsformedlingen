@@ -80,14 +80,6 @@ input {
   padding: 5px;
 }
 
-.error label {
-  color: #cc0033;
-}
-.error input[type=text] {
-  background-color: #fce4e4;
-  border: 1px solid #cc0033;
-  outline: none;
-}
 .gender-male {
   width: 150px;
   float:left;
@@ -105,9 +97,7 @@ select {
   background: transparent;
   margin-bottom: 9px;
 }
-/* input[type="date"] {
-  padding: 4px 5px;
-} */
+
 .item:hover p,
 .item:hover i,
 .question:hover p,

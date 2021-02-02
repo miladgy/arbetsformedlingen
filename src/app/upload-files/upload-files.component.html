@@ -1,3 +1,4 @@
+<div id="handling">
 <div *ngFor="let progressInfo of progressInfos" class="mb-2">
   <span>{{ progressInfo.fileName }}</span>
   <div class="progress">
@@ -20,10 +21,12 @@
 <div class="alert alert-light" role="alert" style="color: #cc0033; font-size: 14px; font-weight: 600;">{{ message }}</div>
 
 <div class="card">
-  <div class="card-header">List of Files</div>
+  <div class="card-header">
+    Uppladdade filer</div>
   <ul class="list-group list-group-flush" *ngFor="let file of fileInfos | async">
     <li class="list-group-item">
       <a href="{{ file.url }}">{{ file.name }}</a>
     </li>
   </ul>
+</div>
 </div>
