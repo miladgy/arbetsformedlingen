@@ -141,11 +141,11 @@
             <legend class="sub-legend">Kontaktadress</legend>
             <div class="item">
               <label for="address">C/O Adress</label>
-              <input id="address" type="text" name="text" placeholder="C/O Street Address" formControlName="street" />
+              <input id="address" type="text" name="text" placeholder="C/O Street Adress" formControlName="street" />
             </div>
             <div class="item">
               <label for="address">Adressfortsättning<span>*</span></label>
-              <input id="address" type="text" name="text" placeholder="Street Address" formControlName="street" />
+              <input id="address" type="text" name="text" placeholder="Gatudress" formControlName="street" />
               <app-form-validation [fieldName]="'street'" [field]="street" [maxLength]="35"></app-form-validation>
             </div>
             <div class="item">
@@ -156,15 +156,15 @@
                     <app-form-validation [fieldName]="'apartmentNumber'" [field]="apartmentNumber" [maxLength]="4"></app-form-validation>
                 </div>
                 <div>
-                  <input type="text" name="city" placeholder="City" formControlName="city" />
+                  <input type="text" name="city" placeholder="Ort" formControlName="city" />
                   <app-form-validation [fieldName]="'city'" [field]="city"></app-form-validation>
                 </div>
                 <div>
-                  <input type="text" name="state" placeholder="Postcity" formControlName="postort" />
+                  <input type="text" name="state" placeholder="Postort" formControlName="postcity" />
                   <app-form-validation [fieldName]="'postcity'" [field]="postcity" [maxLength]="27"></app-form-validation>
                 </div>
                 <div>
-                  <input type="text" name="code" placeholder="Postcode" formControlName="Postnummer" />
+                  <input type="text" name="code" placeholder="Postnummer" formControlName="Postcode" />
                   <app-form-validation [fieldName]="'postcode'" [field]="postcode" [maxLength]="5"></app-form-validation>
                 </div>
               </div>
