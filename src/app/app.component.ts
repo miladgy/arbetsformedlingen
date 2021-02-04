@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from './data.service';
 
 @Component({
@@ -16,11 +12,10 @@ export class AppComponent {
   angForm: FormGroup;
   files = [];
   countries = [];
-  canDisplayData: Boolean;
   IDs = ['PASS', 'ID', 'OTHER', 'NO'];
   constructor(private fb: FormBuilder, private dataService: DataService) {
     this.createForm();
-    this.angForm.get('user.firstname').patchValue('---');
+   // this.angForm.get('user.firstname').patchValue('---'); 
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -56,7 +51,7 @@ export class AppComponent {
       }),
       user: this.fb.group({
         firstname: [
-          '',
+          '---',
           {
             validators: [
               Validators.required,
@@ -76,7 +71,7 @@ export class AppComponent {
         ],
         email: ['', [Validators.required, Validators.email]],
         gender: ['', [Validators.required]],
-        phone: ['', [Validators.required, Validators.pattern('^[0-9]{12}')]],
+        phone: ['', [Validators.required, Validators.pattern('^[0-9]{15}')]],
         country: ['', [Validators.required]],
         additional_info: ['', [Validators.maxLength(200)]],
         abroadPOB: [
@@ -109,7 +104,7 @@ export class AppComponent {
           postcode: ['', [Validators.required, Validators.maxLength(5)]],
         }),
       }),
-      case: this.fb.group({
+      other: this.fb.group({
         FId: ['', [Validators.required, Validators.maxLength(14)]],
         UId: [
           '',
@@ -129,7 +124,6 @@ export class AppComponent {
 
   async ngOnInit() {
     this.countries = await this.dataService.sendGetRequest().toPromise();
-    this.canDisplayData = true;
   }
 
   get officer_firstname() {
@@ -213,15 +207,15 @@ export class AppComponent {
   }
 
   get FId() {
-    return this.angForm.get('case').get('FId');
+    return this.angForm.get('other').get('FId');
   }
 
   get UId() {
-    return this.angForm.get('case').get('UId');
+    return this.angForm.get('other').get('UId');
   }
 
   get other_info() {
-    return this.angForm.get('case').get('other_info');
+    return this.angForm.get('other').get('other_info');
   }
 
   public addFiles = (event: any): void => {

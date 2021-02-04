@@ -1,12 +1,12 @@
 <span class="text-danger" *ngIf="(field.touched) && field.errors?.required">
-    {{ fieldName }} is required.
+    Fältet är obligatorisk.
   </span>
   <span class="text-danger" *ngIf="(field.touched) && field.errors?.maxlength">
-    {{ fieldName }} must be maximum {{ maxLength }} character long.
+    {{ fieldName }} måste vara högst {{ maxLength }} tecken långt.
   </span>
   <span class="text-danger" *ngIf="(field.touched) && field.errors?.pattern">
-    {{ fieldName }} is not valid.
+    {{ fieldName }} är inte giltigt.
   </span>
   <span class="text-danger" *ngIf="(field.touched) && field.errors?.email">
-    Please enter a valid email.
+    Ange ett giltigt e-postadress.
   </span>
