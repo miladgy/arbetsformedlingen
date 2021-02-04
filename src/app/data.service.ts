@@ -39,7 +39,6 @@ export class DataService {
       })
       .pipe(
         map((r) => {
-          console.log('do I come here');
           console.log('e', r);
           return r;
         })
