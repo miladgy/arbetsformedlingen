@@ -18,7 +18,6 @@ export class UploadFilesComponent implements OnInit {
   message = '';
   base64result: string
   fileJSON: Object;
-  fileInfos: Observable<any>;
   data: any = [];
   @Output() filesEvent = new EventEmitter<any>();
 
@@ -74,7 +73,7 @@ export class UploadFilesComponent implements OnInit {
       },
       err => {
         this.progressInfos[index].value = 0;
-        this.message = 'Det gick inte att ladda upp filen:' + file.name;
+        this.message = 'Det gick inte att ladda upp filen: ' + file.name;
       });
   }
 
