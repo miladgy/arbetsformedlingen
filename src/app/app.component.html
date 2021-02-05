@@ -51,7 +51,7 @@
         <legend>Personuppgifter</legend>
         <div class="item">
           <label for="name">Namn<span>*</span></label>
-            <input id="name" type="text" name="name" value="---" placeholder="Förnamn" formControlName="firstname" required/>
+            <input id="name" type="text" name="name" placeholder="Förnamn" formControlName="firstname" (change)="setDefaultFirstname()" required/>
             <app-form-validation [fieldName]="'firstname'" [field]="firstname" [maxLength]="80"></app-form-validation>
             <input id="name" type="text" name="name" placeholder="Efternamn" formControlName="lastname" required/>
             <app-form-validation [fieldName]="'lastname'" [field]="lastname" [maxLength]="60"></app-form-validation>
@@ -208,5 +208,8 @@
     </form>
   </div>
 </body>
-
+<div>
+  {{angForm.value.user.firstname | json}}
+  {{angForm.status| json}}
+</div>
 </html>

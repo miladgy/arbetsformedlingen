@@ -15,7 +15,6 @@ export class AppComponent {
   IDs = ['PASS', 'ID', 'OTHER', 'NO'];
   constructor(private fb: FormBuilder, private dataService: DataService) {
     this.createForm();
-   // this.angForm.get('user.firstname').patchValue('---'); 
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -51,14 +50,13 @@ export class AppComponent {
       }),
       user: this.fb.group({
         firstname: [
-          '---',
+          '',
           {
             validators: [
               Validators.required,
               Validators.maxLength(80),
-              Validators.pattern('^[a-zA-Z]+$'),
-            ],
-            updateOn: 'blur',
+              Validators.pattern('^[a-zA-Z\-]+$'),
+            ]
           },
         ],
         lastname: [
@@ -246,4 +244,8 @@ export class AppComponent {
     }
     return true;
   };
+
+  public setDefaultFirstname = (): void => {
+    this.angForm.get('user.firstname').value === "" && this.angForm.get('user.firstname').touched ? this.angForm.get('user.firstname').patchValue("---") : null
+  }
 }
