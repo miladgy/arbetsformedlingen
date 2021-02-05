@@ -33,14 +33,16 @@ export class DataService {
     headers.set('Accept', 'application/json');
     headers.set('Access-Control-Allow-Origin', '*');
 
+    console.log(values)
+
     return this.httpClient
       .post(`${this.baseUrl}/api/samordningsnummer`, JSON.stringify(values), {
         headers,
       })
       .pipe(
-        map((r) => {
-          console.log('e', r);
-          return r;
+        map((res) => {
+          console.log('e', res);
+          return res;
         })
       );
   }
